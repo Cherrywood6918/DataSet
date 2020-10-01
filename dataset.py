@@ -30,7 +30,7 @@ data_people_death = data.query('age > 14 & status == "D"')
 print(data_people_death)  # Проверка
 age = sorted(data_people_death["age"].unique())
 print(age)  # Проверка
-dic1 = {a: count for a in age for count in range(data_people_death.query('age == @a').shape[0])}
+dic1 = {a: count for a in age for count in range(data_people_death.query('age == @a').shape[0]+1)}
 print(dic1)  # Проверка
 data_new1 = pd.DataFrame(dic1.items(), columns=['Age', 'Deaths'])
 print(data_new1)  # Проверка
@@ -44,7 +44,7 @@ data_people_younger_30 = data.query('age < 30 & status == "D"')
 print(data_people_younger_30)  # Проверка
 state = data_people_younger_30["state"].unique()
 print(state)  # Проверка
-dic2 = {s: count for s in state for count in range(data_people_younger_30.query('state == @s').shape[0])}
+dic2 = {s: count for s in state for count in range(data_people_younger_30.query('state == @s').shape[0]+1)}
 print(dic2)  # Проверка
 data_new2 = pd.DataFrame(dic2.values(), columns=['Deaths'], index=state)
 print(data_new2)  # Проверка
@@ -86,7 +86,7 @@ middle_diagramm = pd.DataFrame({'age': middle}, index=state).plot.bar(rot=0, tit
 categ = data["T.categ"].unique()
 print(categ)
 for i in state:
-    dic3 = {c: count for c in categ for count in range(data.query('`T.categ` == @c & state == @i').shape[0])}
+    dic3 = {c: count for c in categ for count in range(data.query('`T.categ` == @c & state == @i').shape[0]+1)}
     var = pd.DataFrame({'count': dic3.values()}, index=categ).plot.bar(rot=0, title=i)
     # plt.show()
     print(dic3)
