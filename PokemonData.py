@@ -1,5 +1,4 @@
 import pandas as pd
-import plotly.express as px
 import matplotlib.pyplot as plt
 
 data = pd.read_csv('Pokemon.csv')
@@ -21,10 +20,9 @@ list_Pokemon_Type = data['Type 1'].unique()
 for gen in list_Pokemon_Gen:
     dic_Pokemon_Type = {type: count for type in list_Pokemon_Type for count in
                         range(data.query("(`Type 1` == @type | `Type 2` == @type) & Generation == @gen").shape[0] + 1)}
-    var = pd.DataFrame({'Количество покемонов': dic_Pokemon_Type.values()}, index=list_Pokemon_Type).plot.bar(rot=0,
-                                                                                                              title="Поколение " + str(
-                                                                                                                  gen))
-# plt.show()
+    var = pd.DataFrame({'type': dic_Pokemon_Type.values()},
+                       index=list_Pokemon_Type).plot.bar(rot=0, title="Поколение " + str(gen))
+#plt.show()
 
 # Основываясь на информации из датасета, выяснить, соотношения легендарных и обычнх покемонов
 # Результат представить в круговой диаграмме
@@ -60,4 +58,4 @@ for gen in list_Pokemon_Gen:
     gen_pokemon_hp.append(data_pokemon_water.query('Generation == @gen')['HP'].mean())
 print(pd.DataFrame({'generation': gen_pokemon_hp, 'all': mean_HP_Pokemon_Water}))  # Проверка
 ax = pd.DataFrame({'generation': gen_pokemon_hp, 'all': mean_HP_Pokemon_Water}, index=list_Pokemon_Gen).plot.bar(rot=0)
-plt.show()
+#plt.show()
